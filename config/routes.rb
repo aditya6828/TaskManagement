@@ -10,4 +10,9 @@ Rails.application.routes.draw do
 
   get '/registration', to: 'registrations#new', as: :new_registration
 post '/registration', to: 'registrations#create', as: :create_registration
+
+  get '/login', to: 'login#login'
+  post '/login', to: 'login#loginPost'
+
+  get '/dashboard', to: 'dashboard#new'
 end
