@@ -12,6 +12,7 @@ class LoginController < ApplicationController
 
         if @user&.authenticate(password)
             payload = {email: @user.email}
+            puts "payload = #{payload}"
             token = JsonWebToken.encode(payload)
             puts "token = #{token}"
             session[:user_token] = token

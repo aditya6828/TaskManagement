@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'dashboard/show'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -14,5 +15,8 @@ post '/registration', to: 'registrations#create', as: :create_registration
   get '/login', to: 'login#login'
   post '/login', to: 'login#loginPost'
 
-  get '/dashboard', to: 'dashboard#new'
+  get '/dashboard', to: 'dashboard#show'
+  get '/tasks/new', to: 'tasks#show'
+  post '/tasks/new', to: 'tasks#create'
+  post '/tasks', to: 'tasks#create'
 end

@@ -15,10 +15,12 @@ class TasksController < ApplicationController
       @role = @task.assign_to
       puts "role = #{@role}"
       puts "task = #{@task}"
-  
+      puts "before save"
       if @task.save
-        redirect_to @task, notice: 'Task was successfully created.'
+        puts "after save"
+        redirect_to dashboard_path, notice: 'Task was successfully created.'
       else
+        puts "else condition"
         render :new
       end
     end
