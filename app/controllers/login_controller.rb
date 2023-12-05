@@ -9,6 +9,9 @@ class LoginController < ApplicationController
         @user = Admin.find_by(email: @email) || Manager.find_by(email: @email) || Employee.find_by(email: @email)
 
         password = params[:password]
+        puts "user = #{@user}"
+        puts "password = #{password}"
+        
 
         if @user&.authenticate(password)
             payload = {email: @user.email}
@@ -17,7 +20,7 @@ class LoginController < ApplicationController
             puts "token = #{token}"
             session[:user_token] = token
             puts "session token = #{session[:user_token]}"
-            redirect_to dashboard_path
+            redirect_to allTasks_path
         else
             puts "Validation error: #{@user.errors.full_messages}"
             flash[:alert] = @user.errors.full_messages
