@@ -1,11 +1,15 @@
-<%= link_to '+ Create Task', tasks_path, class: 'btn btn-primary mb-3' %>
+<% if @current_user.user_type == "Employee" %>
+
+<% else %>
+  <%= link_to '+ Create Task', tasks_path, class: 'btn btn-primary mb-3' %>
+<% end %>
 
 <style>
   .custom-card {
     background-color: #BED754;
     color: white;
   }
-</style>6
+</style>
 
 
 
@@ -15,12 +19,12 @@
       <div class="col-md-6 mb-4">
         <div class="card custom-card">
           <div class="card-body">
-          <h5 class="card-title"><%= task.id %></h5>
+          <h5 class="card-title">Task Id: <%= task.id %></h5>
             <h5 class="card-title"><%= task.title %></h5>
             <p class="card-text"><%= task.description %></p>
             <p class="card-text"><strong>Assign To:</strong> <%= task.assign_to %></p>
             <p class="card-text"><strong>Status:</strong> <%= task.status %></p>
-            <%= link_to 'Add Tast To Review', review_path, class: 'btn btn-primary mb-3' %>
+            <%= link_to 'Add Task for Review', review_path, class: 'btn btn-primary mb-3' %>
           </div>
         </div>
       </div>

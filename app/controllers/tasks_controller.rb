@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-    before_action :set_current_user, only: [:new, :create, :review]
+    before_action :set_current_user, only: [:new, :create, :review, :reviewTask, :show]
   
   
   
@@ -25,21 +25,26 @@ class TasksController < ApplicationController
     end
   
     def show
+      @current_user
       @tasks = Task.all
     end
 
     def review
       @current_user
-      @task = Task.find_by(title: params[:title])
+      @task = Task.find_by(params[:id])
+      puts "Task = #{@task}"
+
+      @reviews = ReviewTask.all
+      puts "Review = #{@reviews}"
       puts "task = #{@task}"
-      @reviewTask = ReviewTask.new(@task)
+      @reviewTask = ReviewTask.new(@task.attributes)
       @reviewTask.save
     end
 
     def reviewTask
       puts "current user in reviewTask def = #{@current_user}"
 
-      @reviewTask = ReviewTask.new(@task.atrributes)
+      @reviewTask = ReviewTask.new(@task.attributes)
       @reviewTask.save
     end
   
@@ -47,7 +52,7 @@ class TasksController < ApplicationController
     private
   
     def task_params
-      params.require(:task).permit(:title, :description, :assign_to, :status)
+      params.requirve(:task).permit(:title, :description, :assign_to, :status)
     end
   
     def set_current_user
