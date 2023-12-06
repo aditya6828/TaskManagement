@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-    before_action :set_current_user, only: [:new, :create]
+    before_action :set_current_user, only: [:new, :create, :review, :reviewTask, :show]
   
   
   
@@ -9,7 +9,6 @@ class TasksController < ApplicationController
     end
   
     def create
-  
       @task = @current_user.tasks.build(task_params)
   
       @role = @task.assign_to
@@ -18,7 +17,7 @@ class TasksController < ApplicationController
       puts "before save"
       if @task.save
         puts "after save"
-        redirect_to dashboard_path, notice: 'Task was successfully created.'
+        redirect_to allTasks_path, notice: 'Task was successfully created.'
       else
         puts "else condition"
         render :new
@@ -26,15 +25,34 @@ class TasksController < ApplicationController
     end
   
     def show
+      @current_user
       @tasks = Task.all
     end
-  
+
+    def review
+      @current_user
+      @task = Task.find_by(params[:id])
+      puts "Task = #{@task}"
+
+      @reviews = ReviewTask.all
+      puts "Review = #{@reviews}"
+      puts "task = #{@task}"
+      @reviewTask = ReviewTask.new(@task.attributes)
+      @reviewTask.save
+    end
+
+    def reviewTask
+      puts "current user in reviewTask def = #{@current_user}"
+
+      @reviewTask = ReviewTask.new(@task.attributes)
+      @reviewTask.save
+    end
   
   
     private
   
     def task_params
-      params.require(:task).permit(:title, :description, :assign_to, :status)
+      params.requirve(:task).permit(:title, :description, :assign_to, :status)
     end
   
     def set_current_user

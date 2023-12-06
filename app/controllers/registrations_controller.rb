@@ -17,7 +17,7 @@ class RegistrationsController < ApplicationController
       end
   
       if @user.save
-        redirect_to root_path, notice: 'User registered successfully.'
+        redirect_to login_path, notice: 'User registered successfully.'
       else
         render :new
       end

@@ -15,8 +15,14 @@ post '/registration', to: 'registrations#create', as: :create_registration
   get '/login', to: 'login#login'
   post '/login', to: 'login#loginPost'
 
-  get '/dashboard', to: 'dashboard#show'
-  get '/tasks/new', to: 'tasks#show'
-  post '/tasks/new', to: 'tasks#create'
-  post '/tasks', to: 'tasks#create'
+  # get '/dashboard', to: 'dashboard#show'
+  # get '/tasks/new', to: 'tasks#show'
+
+  get 'allTasks', to: 'tasks#show'
+  get 'tasks', to: 'tasks#new'
+  post 'tasks', to: 'tasks#create'
+
+  get '/review', to: 'tasks#review'
+  post '/review', to: 'tasks#review'
+
 end
